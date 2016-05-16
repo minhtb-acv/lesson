@@ -1,0 +1,95 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 25, 2015, 11:06:44 AM
+    Author     : AnhLX Ver2
+*/
+
+.lesson-dd {
+    overflow: hidden;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.lesson-dd p {
+    margin: 0;
+}
+
+.lesson-dd #dragdrop-lesson {
+    width: 35%;
+    border: 1px solid gray;
+    list-style: none;
+    padding: 5px;
+    float: right;
+}
+
+.lesson-dd #dragdrop-lesson ul {
+    margin: 0;
+}
+
+.lesson-dd #dragdrop-lesson ul li {
+    border: 1px solid black;
+    background-color: #fff;
+    cursor: move;
+    margin: 6px;
+    list-style-type: none;
+    z-index: 2;
+    padding: 4px;
+    zoom: 1;
+}
+
+.drop-lesson-answer {
+    float: left;
+    width: 60%;
+    overflow: hidden;
+}
+
+.lesson-dd .lesson-drop {
+    border: 2px solid gray;
+    background-color: transparent;
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.lesson-dd .lesson-drop.yui3-dd-drop-active-valid.yui3-dd-drop-over  {
+    border: 2px dotted green;
+}
+
+.lesson-dd .lesson-drop.yui3-dd-drop-active-valid  {
+    border: 2px dotted red;
+}
+
+.lesson-dd #example-canvas {
+    position: static;
+}
+
+.draghere {
+    border: 1px dotted black;   
+    padding: 5px;
+    display: block;
+}
+
+.draghere.active {
+    border: 1px solid black;
+    background-color: #fff;
+    cursor: move;
+    list-style-type: none;
+    z-index: 2;
+    padding: 4px;
+    zoom: 1;
+}
+
+.answer-item {
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.answer-item > td:first-child {
+    width: 25%;
+}
