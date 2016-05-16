@@ -72,9 +72,17 @@ if ($data = $mform->get_data()) {
     }
 
     // Process the uploaded file
-    if (!$format->importprocess($importfile, $lesson, $pageid)) {
+	/* MinhTB VERSION2 2016-05-13 */
+	$importresult = $format->importprocess($importfile, $lesson, $pageid, true);
+
+    if (!$importresult) {
         print_error('processerror', 'lesson');
+    } elseif ($importresult === 'unsupport') {
+	    echo '__v2__error'; die;
+    } else {
+	    echo '__v2__success'; die;
     }
+	/* END MinhTB VERSION2 2016-05-13 */
 
     // In case anything needs to be done after
     if (!$format->importpostprocess()) {

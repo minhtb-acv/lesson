@@ -952,7 +952,7 @@ class qformat_xml extends qformat_default {
      * @param stdClass $context
      * @return array (of objects) question objects.
      */
-    protected function readquestions($lines) {
+    protected function readquestions($lines, $fromBq = false) { // MinhTB VERSION2 2016-05-13
         // We just need it as one big string.
         $lines = implode('', $lines);
 
@@ -965,19 +965,19 @@ class qformat_xml extends qformat_default {
             return false;
         }
         unset($lines); // No need to keep this in memory.
-        return $this->import_questions($xml['quiz']['#']['question']);
+        return $this->import_questions($xml['quiz']['#']['question'], $fromBq); // MinhTB VERSION2 2016-05-13
     }
 
     /**
      * @param array $xml the xmlized xml
      * @return stdClass[] question objects to pass to question type save_question_options
      */
-    public function import_questions($xml) {
+    public function import_questions($xml, $fromBq = false) { // MinhTB VERSION2 2016-05-13
         $questions = array();
 
         // Iterate through questions.
         foreach ($xml as $questionxml) {
-            $qo = $this->import_question($questionxml);
+            $qo = $this->import_question($questionxml, $fromBq);
 
             // Stick the result in the $questions array.
             if ($qo) {
@@ -991,7 +991,7 @@ class qformat_xml extends qformat_default {
      * @param array $questionxml xml describing the question
      * @return null|stdClass an object with data to be fed to question type save_question_options
      */
-    protected function import_question($questionxml) {
+    protected function import_question($questionxml, $fromBq = false) {
         $questiontype = $questionxml['@']['type'];
 
         if ($questiontype == 'multichoice') {
@@ -1029,8 +1029,15 @@ class qformat_xml extends qformat_default {
             // Not a type we handle ourselves. See if the question type wants
             // to handle it.
             if (!$qo = $this->try_importing_using_qtypes($questionxml, null, null, $questiontype)) {
-                $this->error(get_string('xmltypeunsupported', 'qformat_xml', $questiontype));
-                return null;
+	            /* MinhTB VERSION2 2016-05-13 */
+	            if ($fromBq) {
+		            $qo = new stdClass();
+		            $qo->qtype = 'other';
+	            } else {
+		            $this->error(get_string('xmltypeunsupported', 'qformat_xml', $questiontype));
+		            return null;
+	            }
+	            /* END MinhTB VERSION2 2016-05-13 */
             }
             return $qo;
         }

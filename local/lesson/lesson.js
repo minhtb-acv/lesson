@@ -227,7 +227,15 @@ M.local_lesson = {
                                                                                                 listQuestion.setHTML('');
                                                                                                 Y.one('.add-to-lesson').remove();
                                                                                                 flagAddToLesson = true;
-                                                                                                alert('レッスンに追加しました。');
+                                                                                                /* MinhTB VERSION2 2016-05-13 */
+                                                                                                var result = o.responseText.split('__v2__')[1];
+
+                                                                                                if (result == 'success') {
+                                                                                                    alert('レッスンに追加しました。');
+                                                                                                } else {
+                                                                                                    alert('レッスンモジュールに対応していない問題形式は追加できません');
+                                                                                                }
+                                                                                                /* END MinhTB VERSION2 2016-05-13 */
                                                                                             } catch (e) {
                                                                                                 // This is what happens if the request fails.
                                                                                                 console.log("JSON Parse failed!");

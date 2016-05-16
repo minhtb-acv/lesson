@@ -386,7 +386,7 @@ class qformat_default {
         return true;
     }
 
-    function importprocess($filename, $lesson, $pageid) {
+    function importprocess($filename, $lesson, $pageid, $fromBq = false) { // MinhTB VERSION2 2016-05-13
         global $DB, $OUTPUT;
 
         /// Processes a given file.  There's probably little need to change this
@@ -397,7 +397,7 @@ class qformat_default {
             return false;
         }
 
-        if (! $questions = $this->readquestions($lines)) {   // Extract all the questions
+        if (! $questions = $this->readquestions($lines, $fromBq)) {   // Extract all the questions
             echo $OUTPUT->notification("There are no questions in this file!");
             return false;
         }
@@ -416,6 +416,9 @@ class qformat_default {
         }
 
         $unsupportedquestions = 0;
+
+	    /* MinhTB VERSION2 2016-05-13 */
+	    $transaction = $DB->start_delegated_transaction();
 
         foreach ($questions as $question) {   // Process and store each question
             switch ($question->qtype) {
@@ -524,10 +527,18 @@ class qformat_default {
                     break;
                 // the Bad ones
                 default :
+					if ($fromBq) {
+						$DB->force_transaction_rollback();
+						return 'unsupport';
+					}
+
                     $unsupportedquestions++;
                     break;
             }
         }
+
+	    $transaction->allow_commit();
+	    /* END MinhTB VERSION2 2016-05-13 */
         // Update the prev links if there were existing pages.
         if (!empty($updatelessonpage)) {
             if ($addquestionontop) {
