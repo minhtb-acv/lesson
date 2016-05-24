@@ -11,3 +11,4 @@ $string['backtolesson'] = '戻る';
 
 $string['addfromquestionbank'] = '問題バンクからインポート';
 $string['addquestionfrombank'] = '問題バンクからページ 1 に追加する';
+$string['choosecoursenotice'] = '下記の一覧からインポートする問題バンクをクリックしてください';

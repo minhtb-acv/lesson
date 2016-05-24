@@ -38,7 +38,7 @@ if ($lessonQuestions->display->isAdmin()) {
     $courses = enrol_get_all_users_courses($USER->id);
 }
 
-echo '<p>下記の一覧からインポートする問題バンクをクリックしてください</p>';
+echo '<p>' . get_string('choosecoursenotice', $lessonQuestions->blockName) . '</p>';
 
 foreach ($courses as $course) {
     if ($course->id != 1) {

@@ -378,6 +378,7 @@ M.local_lesson = {
                                                                                                 t.addClass('active');
 
                                                                                                 Y.one('.content-list').setHTML(html);
+                                                                                                Y.one('.checkbox-all-question').set('checked', false);
                                                                                                 pageLoad = false;
                                                                                             }
                                                                                         } catch (e) {
