@@ -38,6 +38,8 @@ if ($lessonQuestions->display->isAdmin()) {
     $courses = enrol_get_all_users_courses($USER->id);
 }
 
+echo '<p>下記の一覧からインポートする問題バンクをクリックしてください</p>';
+
 foreach ($courses as $course) {
     if ($course->id != 1) {
         $exportQuestionBank = new \moodle_url('/local/lesson/question_bank_export.php', array(
